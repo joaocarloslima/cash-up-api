@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.cash_up_api.model.Category;
 
 @RestController // component
 public class CategoryController {
+private List<Category> repository = new ArrayList<>();
 
     private List<Category> repository = new ArrayList<>();
 
@@ -31,6 +36,8 @@ public class CategoryController {
         System.out.println("Cadastrando categoria " + category.getName());
         repository.add(category);
         return ResponseEntity.status(201).body(category);
+
+    // retomar categoria
     }
 
     // retornar uma categoria
@@ -51,5 +58,6 @@ public class CategoryController {
     // apagar categoria
 
     // editar uma categorias
+   }
 
 }
