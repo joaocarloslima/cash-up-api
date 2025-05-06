@@ -39,7 +39,7 @@ public class TokenService {
                     .builder()
                     .id(Long.parseLong( verifiedToken.getSubject() ))
                     .email(verifiedToken.getClaim("email").toString())
-                    .role(UserRole.valueOf(verifiedToken.getClaim("role").toString()))
+                    .role(UserRole.valueOf(verifiedToken.getClaim("role").asString()))
                     .build();
                                 
     }

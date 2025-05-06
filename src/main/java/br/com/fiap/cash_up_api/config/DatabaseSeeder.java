@@ -37,12 +37,28 @@ public class DatabaseSeeder {
 
     @PostConstruct
     public void init() {
+        var joao = User.builder()
+                        .email("joao@fiap.com.br")
+                        .password(passwordEncoder.encode("12345"))
+                        .role(UserRole.ADMIN)
+                        .build();
+
+        var maria = User.builder()
+                        .email("maria@fiap.com.br")
+                        .password(passwordEncoder.encode("12345"))
+                        .role(UserRole.USER)
+                        .build();
+
+        userRepository.saveAll(List.of(joao, maria));
+
         var categories = List.of(
-                Category.builder().name("Educação").icon("Book").build(),
-                Category.builder().name("Lazer").icon("Dices").build(),
-                Category.builder().name("Saúde").icon("Heart").build(),
-                Category.builder().name("Alimentação").icon("Apple").build(),
-                Category.builder().name("Transporte").icon("Bus").build());
+                Category.builder().name("Educação").icon("Book").user(joao).build(),
+                Category.builder().name("Lazer").icon("Dices").user(joao).build(),
+                Category.builder().name("Saúde").icon("Heart").user(joao).build(),
+                Category.builder().name("Alimentação").icon("Apple").user(joao).build(),
+                Category.builder().name("Transporte").icon("Bus").user(joao).build(),
+                Category.builder().name("Transporte").icon("Bus").user(maria).build())
+                ;
 
         categoryRepository.saveAll(categories);
 
@@ -80,18 +96,7 @@ public class DatabaseSeeder {
         }
         transactionRepository.saveAll(transactions);
 
-        userRepository.saveAll(List.of(
-                User.builder()
-                        .email("joao@fiap.com.br")
-                        .password(passwordEncoder.encode("12345"))
-                        .role(UserRole.ADMIN)
-                        .build(),
-
-                User.builder()
-                        .email("maria@fiap.com.br")
-                        .password(passwordEncoder.encode("12345"))
-                        .role(UserRole.USER)
-                        .build()));
+        
     }
 
 }
